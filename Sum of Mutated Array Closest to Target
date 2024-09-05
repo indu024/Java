@@ -1,0 +1,64 @@
+Given an integer array arr and a target value target, return the integer value such that when we change all the integers larger than value in the given array to be equal to value, the sum of the array gets as close as possible (in absolute difference) to target.
+In case of a tie, return the minimum such integer.
+Notice that the answer is not neccesarilly a number from arr.
+
+Example 1:
+
+Input: arr = [4,9,3], target = 10
+Output: 3
+Explanation: When using 3 arr converts to [3, 3, 3] which sums 9 and that's the optimal answer.
+
+Java Code:
+class Solution {
+    public int findBestValue(int[] arr, int target) {
+        //following the peak element approach method
+        //binary search
+     
+        
+
+
+        int left=0;
+        int right=0;
+        int mid=0;
+        for(int num1:arr){
+            right=Math.max(right,num1);
+
+        }
+
+        int value=right;
+        int diff=Integer.MAX_VALUE;
+   //binary search
+        while(left<=right){
+            mid=(left+right)/2;
+            int currentsum=calculateSum(arr,mid);
+            int currdiff=Math.abs(currentsum-target);
+
+            if(currdiff<diff || (currdiff==diff && mid<value)){    
+
+            value=mid;
+            diff=currdiff;
+
+            }
+
+            //
+        if(currentsum<target){
+            left=mid+1;
+        }else{
+            right=mid-1;
+        }
+
+
+        }
+        return value;
+
+
+    }
+    private int calculateSum(int[] arr, int value) {
+        int sum = 0;
+        for (int num : arr) {
+            sum += Math.min(num, value);
+        }
+        return sum;
+    }
+}
+
